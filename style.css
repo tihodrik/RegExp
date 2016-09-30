@@ -1,0 +1,29 @@
+#text {
+    width: 500px;
+    height: 200px;
+    font-size: 12pt;
+}
+
+#result {
+    width: 500px;
+    height: 100px;
+}
+
+#regex {
+    width: 500px;
+}
+
+span {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.check {
+    width: 500px;
+    text-align: center;
+}
+
+.check :nth-child(2n) {
+    margin-left: 100px;
+    margin-right: 100px;
+}
