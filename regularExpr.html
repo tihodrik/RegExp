@@ -18,14 +18,18 @@
 		});
 	</script>
 
-	<p><input id="regex" placeholder="Rgular expression"/></p>
+	<p><input class="re" id="regex" placeholder="Find (regular expressinos are available)"></p>
+	<p><input class="re" id="replace" placeholder="Replace"></p>
+
 	<p class="check">
 		<label><input id="global" class="flag" type="checkbox" checked value="g">Global</label>
 		<label><input class="flag" type="checkbox" checked value="i">Ignore Case</label>
 		<label><input class="flag" type="checkbox" checked value="m">Multiline</label>
 	</p>
-	<p><button id="button" onclick="GetResult()">Get result</button></p>
-	<p><div style="white-space: pre" id="result"></div></p>
+	<p><button id="getResult" onclick="GetResult()">RESULT</button></p>
+
+	<p><div id="result"></div></p>
+	<p><button id="saveText" onclick="SaveText()">Save Result</button></p>
 </body>
 
 </html>

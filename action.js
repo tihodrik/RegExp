@@ -1,8 +1,8 @@
 var regExp;
+var replace;
 var result;
 var text;
 var flags;
-
 function Replacer(match) {
     switch (match) {
         case "<": return "&lt;";
@@ -12,45 +12,6 @@ function Replacer(match) {
     }
 }
 
-function ReplaceText(string, re, gFlag) {
-    re.lastIndex = 0;
-
-    if ( $("#regex").val() == "" || (result = re.exec(string)) == null)
-        return string.replace(/[<>&]/g, Replacer);
-
-    console.log("Replace text, string: " + string);
-    console.log(result);
-    console.log("lastIndex: " + re.lastIndex);
-
-    if (result[0] == "") {
-        do {
-            re.lastIndex++;
-        }
-        while ( (result = re.exec(string)) == "");
-
-        console.log(result);
-
-        if (result == null)
-            return string.replace(/[<>&]/g, Replacer);
-    }
-
-
-    console.log("lastIndex: " + re.lastIndex);
-
-    prev = string.substring(0, result.index).replace(/[<>&]/g, Replacer);
-    console.log("Prev: " + prev);
-
-    if (!gFlag) {
-        next = string.substring(result.index + result[0].length, string.length).replace(/[<>&]/g, Replacer);
-        console.log(next);
-        console.log(prev + "<span>" + result[0].replace(/[<>&]/g, Replacer) + "</span>" + next);
-        return prev + "<span>" + result[0].replace(/[<>&]/g, Replacer) + "</span>" + next;
-    }
-
-    return prev + "<span>" + result[0].replace(/[<>&]/g, Replacer) + "</span>" + ReplaceText(string.substring(re.lastIndex, string.length), re, gFlag);
-}
-
-
 function GetResult() {
     flags = "";
 
@@ -58,8 +19,36 @@ function GetResult() {
         flags += this.value;
     });
 
-    if ($("#global").prop("checked") == true)
-        $("#result").html(ReplaceText($("#text").val(), new RegExp($("#regex").val(), flags), true));
-    else
-        $("#result").html(ReplaceText($("#text").val(), new RegExp($("#regex").val(), flags), false));
+    text = $("#text").val();
+
+    if ($("#regex").val() != "") {
+        regExp = new RegExp($("#regex").val(), flags);
+        replace = $("#replace").val();
+        console.log(replace);
+        text = text.replace(regExp, replace);
+    }
+
+    text = text.replace(/[<>&]/g, Replacer);
+    $("#result").css("display", "block");
+    $("#saveText").css("display", "block");
+    $("#result").html(text);
+
+}
+
+function SaveText() {
+    var text = $("#result").text();
+    console.log(text);
+    var blob = new Blob([text], {type:"text/plain"});
+
+    var linkURL = window.URL.createObjectURL(blob);
+    var fileName = "regexp.txt";
+
+    var link = document.createElement("a");
+    link.download = fileName;
+    link.href = linkURL;
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
