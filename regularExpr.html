@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Regular Expressions</title>
+	<link rel=stylesheet href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src=action.js></script>
+</head>
+
+<body>
+
+	<p><textarea id="text" autofocus></textarea></p>
+	<script type="text/javascript">
+		$(document).ready( function() {
+			$("#text").focus();
+		});
+	</script>
+
+	<p><input id="regex" placeholder="Rgular expression"/></p>
+	<p class="check">
+		<label><input id="global" class="flag" type="checkbox" checked value="g">Global</label>
+		<label><input class="flag" type="checkbox" checked value="i">Ignore Case</label>
+		<label><input class="flag" type="checkbox" checked value="m">Multiline</label>
+	</p>
+	<p><button id="button" onclick="GetResult()">Get result</button></p>
+	<p><div style="white-space: pre" id="result"></div></p>
+</body>
+
+</html>
